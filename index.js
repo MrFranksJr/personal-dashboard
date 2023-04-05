@@ -1,4 +1,11 @@
-import { setBackGround, updatePixelRatio } from "./data/utils.js"
+import { setBackGround, updatePixelRatio, getFullDate } from "./data/utils.js"
 
-updatePixelRatio()
-setBackGround()
+function initLoad() {
+    //Check screen/pixel ratio
+    updatePixelRatio()
+    //set background
+    setBackGround()
+    document.getElementById('current-date').textContent = getFullDate()
+}
+
+initLoad()
