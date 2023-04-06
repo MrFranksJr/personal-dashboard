@@ -1,6 +1,6 @@
-export { updatePixelRatio, setBackGround, getFullDate }
+export { updatePixelRatio, setBackGround, getFullDate, getTime }
 
-const baseURL = 'https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=nature&topic=wallpapers'
+const baseURL = 'https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=landscapes,nature&topic=wallpapers'
 /* https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=nature */
 /* https://api.unsplash.com/photos/random?orientation=landscape&client_id=-_WaTkHs23f_trveYoqlgf_SW6cKHl1E8acgWHKLejE&query=nature */
 let dPR = window.devicePixelRatio
@@ -23,7 +23,7 @@ async function onloadFetchBg() {
     backgroundAuthorString = `Photo by <a href='${dataPromise.user.links.html}' alt='${dataPromise.user.name}'s Unsplash profile page' target='_blank'>${dataPromise.user.name}</a> 
             on <a href='https://unsplash.com/?utm_source=personal-dashboard&utm_medium=referral' alt='link to Unsplash homepage' target='_blank'>Unsplash</a>`
 
-    return dataPromise.urls.regular
+    return dataPromise.urls.full
 }
 
 
@@ -47,39 +47,15 @@ const updatePixelRatio = () => {
   }
 }
 
-
 ////////GET FULL Date /////
 function getFullDate(){
   const d = new Date()
-  const months = {
-    0: 'January',
-    1: 'February',
-    2: 'March',
-    3: 'April',
-    4: 'May',
-    5: 'June',
-    6: 'July',
-    7: 'August',
-    8: 'September',
-    9: 'October',
-    10: 'November',
-    11: 'December'
-  }
-  const days = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday'
-  ]
-  const monthIndex = d.getMonth()
-  const year = d.getFullYear()
-  const date = d.getDate()
-  const dayIndex = d.getDay()
-  const dayName = days[dayIndex]
-  const monthName = months[monthIndex]
+  return d.toLocaleDateString("en-GB", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
+}
 
-  return `${dayName}, ${date}th of ${monthName} ${year}`
+function getTime() {
+  const d = new Date()
+  let fullTime = d.toLocaleString("en-GB", {hour: '2-digit', minute: '2-digit'})
+
+  document.getElementById('current-time').textContent = fullTime
 }
