@@ -41,7 +41,7 @@ main {
     height: fit-content;
     width: auto;
     transition: 0.5s ease;
-    background-color: #00000071;
+    background-color: #000000a0;
     border-radius: 8px;
     backdrop-filter: blur(28px);
 }
@@ -319,4 +319,8 @@ main {
 .show-modal {
     transition: 0.2s ease;
     display: flex;
+}
+
+.devpic {
+    border-radius: 50%;
 }
