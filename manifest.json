@@ -1,0 +1,15 @@
+{
+    "manifest_version": 3,
+    "name": "Dashboard by MrFranks",
+    "version": "1.0.0",
+    "description": "Just for practicing async JS",
+    "action": {
+        "default_icon": "images/icons/icon.png"
+    },
+    "icons": {
+          "192": "images/icons/icon.svg" 
+    },
+    "chrome_url_overrides": {
+        "newtab": "index.html"
+    }
+}

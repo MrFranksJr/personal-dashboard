@@ -1,4 +1,4 @@
-export { getFullDate, getTime }
+export { getFullDate, getTime, hideShowInfoModal }
 
 ////////GET FULL Date & time /////
 function getFullDate(){
@@ -11,4 +11,10 @@ function getTime() {
   let fullTime = d.toLocaleString("en-GB", {timeStyle: "short"})
 
   document.getElementById('current-time').textContent = fullTime
+}
+
+function hideShowInfoModal() {
+  document.getElementById('bigdiv').classList.toggle('blurred')
+  document.getElementsByTagName('body')[0].classList.toggle('body-blurred')
+  document.getElementById('info-modal').classList.toggle('show-modal')
 }

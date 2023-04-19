@@ -17,7 +17,7 @@ function onloadFetchCrypto() {
           coinHTML = coinHTML + `
           <button class='coin-btn'>
             <img src="${cryptoCoin.image}" alt="icon for the ${cryptoCoin.name} asset" class='coin-icon'>
-            <p>${cryptoCoin.name} (${cryptoCoin.symbol.toUpperCase()}) – €${cryptoCoin.current_price.toLocaleString("nl-BE")}</p>
+            <p>${cryptoCoin.name} (${cryptoCoin.symbol.toUpperCase()})&nbsp;&nbsp;&nbsp;<strong>€${cryptoCoin.current_price.toLocaleString("nl-BE")}</strong></p>
           </button>
           <div class='coin-content'>
             <p class='crypto-info'>🇪🇺&nbsp;&nbsp;&nbsp;€ ${cryptoCoin.current_price.toLocaleString("nl-BE")}</p>
@@ -41,7 +41,6 @@ function onloadFetchCrypto() {
                 contentDiv.style.maxHeight = null
               }
            }
-  
             this.classList.toggle("active")
             if (this.nextElementSibling.style.maxHeight){
               this.nextElementSibling.style.maxHeight = null
