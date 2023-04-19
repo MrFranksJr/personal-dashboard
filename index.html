@@ -1,5 +1,7 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
+        <title>Dashboard by MrFranks</title>
         <!-- CSS STUFF -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
         <link rel="stylesheet" href="index.css">
@@ -8,19 +10,36 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- META STUFF -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
     </head>
     <body>
         <main>
-            <div class="header">
-                <div id="crypto-div" class="crypto-div">Crypto</div>
-                <div id="weather-div" class="weather-div">Weather</div>
-            </div>
-            <div class="center">
-                <div id="current-date" class="current-date"></div>
-                <div id="current-time" class="current-time"></div>
+            <div class="bigdiv">
+                <div class="left-bottom">
+                    <div id="crypto-div" class="crypto-div">Crypto</div>
+                </div>
+                <div class="center">
+                    <div class="uppercenter">
+                        <div id="current-date" class="current-date"></div>
+                        <div id="current-time" class="current-time"></div>
+                    </div>
+                    <div class="lowercenter">
+
+                    </div>
+                </div>
+                <div class="right-mid">
+                    <div id="weather-div" class="weather-div">Weather</div>
+                </div>
             </div>
             <div id="footer" class="footer">
                 <p id="author" class="author"></p>
+                <p>Dashboard design by <a href='https://www.github.com/MrFranksJr' target='_blank' alt='github of MrFranks'>MrFranks</a></p>
+                <div class="settings-info">
+                    <button><i class="fa-solid fa-circle-info"></i></button>
+                    <button><i class="fa-solid fa-gear"></i></button>
+                </div>
             </div>
         </main>
         <script src="index.js" type="module"></script>
