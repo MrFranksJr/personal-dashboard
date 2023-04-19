@@ -9,8 +9,7 @@ const locationOptions = {
 async function fetchWeather(pos) {
     const weatherDataJson = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&units=metric&appid=${openWeatherAPI}`)
     const weatherData = await weatherDataJson.json()
-    
-    console.log(weatherData)
+
     document.getElementById('weather-div').innerHTML = `
             <p class='weather-location'>${weatherData.name}, ${weatherData.sys.country}</p>
             <div class='image-temps'>
@@ -20,7 +19,6 @@ async function fetchWeather(pos) {
             <p class='weather-description'>${weatherData.weather[0].description.charAt(0).toUpperCase() + weatherData.weather[0].description.slice(1)}</p>
             `
 }
-
 
 ////////////////////////locationKEY + ACCUWEATHER //////////////////////////
 async function geoSuccess(pos) {
@@ -48,5 +46,5 @@ async function geoSuccess(pos) {
   }
   
 function geoError(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
+    console.warn(`ERROR(${err.code}): ${err.message}`)
 }

@@ -42,6 +42,8 @@ main {
     width: auto;
     transition: 0.5s ease;
     background-color: #00000071;
+    border-radius: 8px;
+    backdrop-filter: blur(28px);
 }
 .crypto-div:hover {
     background-color: #000000a0;
@@ -64,7 +66,6 @@ main {
     margin-left: 1rem;
     content: '\002B';
     color: #FFF;
-    text-shadow: 0px 0px 15px white;
     font-size: 1.5em;
     transition: 0.3s ease;
 }
@@ -90,6 +91,7 @@ main {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
+    border-radius: 0 0 8px 8px;
 }
 
 .crypto-info {
@@ -100,14 +102,16 @@ main {
     display: flex;
     flex-direction: column;
     height: fit-content;
-    align-items: flex-end;
+    align-items: center;
     transition: 0.5s ease;
-    padding: 1rem 2rem;
+    padding: 1rem 1.5rem;
     text-shadow: 0px 0px 10px #616161;
     cursor: pointer;
+    backdrop-filter: blur(28px);
+    border-radius: 8px;
 }
 .weather-div:hover {
-    background-color: #72727240;
+    background-color: #000000a0;
 }
 
 .weather-location {
@@ -120,10 +124,6 @@ main {
     align-items: center;
 }
 
-.weather-img {
-    width: 70px;
-}
-
 .temp-text{
     font-size: 2rem;
     margin: 0;
@@ -131,7 +131,7 @@ main {
 
 .weather-description {
     font-size: 1rem;
-    margin: 0.6rem 0 0 0;
+    margin: 0;
 }
 
 .center {
@@ -158,10 +158,62 @@ main {
 }
 
 .uppercenter {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.date-and-time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+    padding: 1.5rem;
+    border-radius: 8px;
+    transition: 0.3s ease;
+    cursor: default;
+}
+.date-and-time:hover {
+    backdrop-filter: blur(5px);
+}
+
+.lowercenter {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 2rem;
+    font-size: 1rem;
+}
+
+.lowercenter a {
+    text-decoration: none;
+    color: unset;
+}
+
+.quote {
+    display: inline-block;
+    width: 500px;
+    font-family: 'Amatic SC', cursive;
+    font-weight: bold;
+    font-size: 2.5rem;
+    padding: 2rem;
+    text-shadow: 0px 0px 10px #2d2d2d;
+    border-top: #E0CA3C solid 8px;
+    backdrop-filter: blur(28px);
+    border-radius: 8px;
+    line-height: 2.8rem;
+}
+
+.signed {
+    width: 100%;
+    margin-top: 1.5rem;
+    text-align: right;
+    display: inline-block;
+    line-height: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
 }
 
 .current-time {
@@ -194,6 +246,8 @@ main {
 .settings-info {
     display: flex;
     gap: 2rem;
+    justify-content: right;
+    align-items: center;
 }
 
 .settings-info button {
@@ -215,4 +269,54 @@ main {
 .settings-info button:hover .fa-gear {
     transform: rotate(180deg);
     color: rgba(255, 255, 255);
+}
+
+.info-modal {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2rem;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 500px;
+    width: fit-content;
+    border-radius: 8px;
+    background-color: #2d2d2d72;
+    backdrop-filter: blur(28px);
+    color: #FFF;
+}
+
+.info-modal h2 {
+    margin:0;
+}
+
+.info-modal div img {
+    height: 40px;
+    margin-right: 1rem;
+}
+
+.credit-logo {
+    display: flex;
+    align-items: center;
+}
+
+.credit-logo a {
+    color: unset;
+}
+
+.blurred {
+    transition: 0.2s ease;
+    filter: blur(10px);
+}
+
+.body-blurred {
+    transition: 0.2s ease;
+    backdrop-filter: blur(28px);
+}
+
+.show-modal {
+    transition: 0.2s ease;
+    display: flex;
 }
