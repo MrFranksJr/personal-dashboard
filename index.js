@@ -12,12 +12,11 @@ function initLoad() {
         console.log('lol')
         console.error(err)
     }
-    
     onloadFetchCrypto()
     document.getElementById('current-date').textContent = getFullDate()
     getTime()
     //ACCUWEATHER
-    /* navigator.geolocation.getCurrentPosition(geoSuccess, geoError, locationOptions) */
+    /* navigator.geolocation.watchPosition(geoSuccess, geoError, locationOptions) */
     //OPENWEATHER
     navigator.geolocation.getCurrentPosition(fetchWeather, geoError, locationOptions)
     fetchTrumpQuote()
