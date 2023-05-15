@@ -1,25 +1,21 @@
-import { getFullDate, getTime, hideShowInfoModal } from "./data/utils.js"
+import { getFullDate, getTime, hideShowInfoModal, hideShowOptionsModal } from "./data/utils.js"
 import { setBackGround } from "./data/backgroundfetch.js"
-import { onloadFetchCrypto } from "./data/cryptofetch.js"
+import { getCoinList, onloadFetchCrypto } from "./data/cryptofetch.js"
 import { geoSuccess, geoError, locationOptions, fetchWeather } from "./data/weatherfetch.js"
 import { fetchTrumpQuote } from "./data/trumpquote.js"
 
-function initLoad() {
-    //set background
-    try {
-        setBackGround()
-    } catch(err) {
-        console.log('lol')
-        console.error(err)
-    }
-    onloadFetchCrypto()
-    document.getElementById('current-date').textContent = getFullDate()
+async function initLoad() {
+    await getCoinList()
     getTime()
+    document.getElementById('current-date').textContent = getFullDate()
     //ACCUWEATHER
     /* navigator.geolocation.watchPosition(geoSuccess, geoError, locationOptions) */
     //OPENWEATHER
     navigator.geolocation.getCurrentPosition(fetchWeather, geoError, locationOptions)
+    onloadFetchCrypto()
     fetchTrumpQuote()
+    //set background
+    setBackGround()
 
     setTimeout(() => {
         document.getElementById('crypto-div').style.backgroundColor = '#00000040'
@@ -37,6 +33,8 @@ document.addEventListener('keydown', function(e) {
     if(e.key == 'Escape'){
         if (document.getElementById('info-modal').classList.contains('show-modal')) {
             hideShowInfoModal()
+        } else if (document.getElementById('options-modal').classList.contains('show-modal')) {
+            hideShowOptionsModal('close')
         }
     }
 })
@@ -46,5 +44,11 @@ document.addEventListener('click', (e) => {
         hideShowInfoModal()
     } else if (!document.getElementById('info-modal').classList.contains('show-modal') && e.target.id === 'info-button') {
         hideShowInfoModal()
+    } else if (e.target.id === 'options-button' && !document.getElementById('options-modal').classList.contains('show-modal')) {
+        hideShowOptionsModal('open')
     }
+})
+
+document.getElementById('close-options-modal').addEventListener('click', (e) => {
+    hideShowOptionsModal('close')
 })

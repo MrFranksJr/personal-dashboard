@@ -21,6 +21,8 @@ body {
     text-shadow: 0px 0px 50px #616161;
     -webkit-font-smoothing: antialiased;
     height: 100vh;
+    background-color: #2d2d2d;
+    transition: 0.4s ease;
 }
 
 main {
@@ -44,6 +46,7 @@ main {
     background-color: #000000a0;
     border-radius: 8px;
     backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
 }
 .crypto-div:hover {
     background-color: #000000a0;
@@ -108,6 +111,7 @@ main {
     text-shadow: 0px 0px 10px #616161;
     cursor: pointer;
     backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
     border-radius: 8px;
 }
 .weather-div:hover {
@@ -117,6 +121,17 @@ main {
 .weather-location {
     margin: 0;
     font-size: 1.5rem;
+}
+
+.weather-img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.weather-img-none {
+    width: 50px;
+    height: auto;
+    margin-bottom: 1em;
 }
 
 .image-temps {
@@ -175,9 +190,6 @@ main {
     cursor: default;
     text-align: center;
 }
-.date-and-time:hover {
-    backdrop-filter: blur(5px);
-}
 
 .lowercenter {
     display: flex;
@@ -203,6 +215,7 @@ main {
     text-shadow: 0px 0px 10px #2d2d2d;
     border-top: #E0CA3C solid 8px;
     backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
     border-radius: 8px;
     line-height: 2.8rem;
 }
@@ -231,6 +244,16 @@ main {
     height: 30px;
     color: rgba(255, 255, 255, 0.6);
     text-shadow: none;
+}
+
+.author,
+.made-by,
+.settings-info {
+    flex: 1;
+}
+
+.made-by {
+    text-align: center;
 }
 
 .footer a {
@@ -286,6 +309,7 @@ main {
     border-radius: 8px;
     background-color: #ffffff72;
     backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
     color: #FFF;
 }
 
@@ -315,13 +339,73 @@ main {
 .body-blurred {
     transition: 0.2s ease;
     backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+}
+
+.devpic {
+    border-radius: 50%;
+}
+
+.options-modal {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2rem;
+    flex-direction: column;
+    max-width: 700px;
+    min-width: 500px;
+    min-height: 500px;
+    width: fit-content;
+    border-radius: 8px;
+    background-color: #ffffff72;
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    color: #2d2d2d;
+}
+
+.options-modal-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2em;
+}
+
+.options-modal-title .fa-circle-xmark {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.options-modal-title .fa-circle-xmark:hover {
+    color: #616161;
+}
+
+.options-modal h2 {
+    margin: 0;
+}
+
+.option {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 0.5rem;
+    padding: 0 2px;
+}
+
+select {
+    display: inline-block;
+    padding: 2px 5px 0px 5px;
+    border-radius: 8px;
+    height:30px;
+    border: solid 1px #ced4da;
+    background-color: white;
+    position: relative;
 }
 
 .show-modal {
     transition: 0.2s ease;
     display: flex;
-}
-
-.devpic {
-    border-radius: 50%;
 }

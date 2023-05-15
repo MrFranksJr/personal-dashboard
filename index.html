@@ -3,13 +3,13 @@
     <head>
         <title>Dashboard by MrFranks</title>
         <!-- CSS STUFF -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
         <link rel="stylesheet" href="index.css">
         <!-- FONT STUFF -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <!-- META STUFF -->
         <link rel="icon" type="image/png" sizes="64x64" href="/images/icons/favicon.png">
         <meta charset="UTF-8">
@@ -19,7 +19,10 @@
         <main>
             <div id="bigdiv" class="bigdiv">
                 <div class="left-bottom">
-                    <div id="crypto-div" class="crypto-div">Crypto</div>
+                    <div id="crypto-div" class="crypto-div">
+                        <img class='weather-img' src='/images/rippleLoad.svg' alt='loading-animation'><br>
+                        Loading Crypto assets...
+                    </div>
                 </div>
                 <div class="center">
                     <div class="uppercenter">
@@ -29,11 +32,19 @@
                         </div>
                     </div>
                     <div id="lowercenter" class="lowercenter">
-
+                        <img class='weather-img' src='/images/rippleLoad.svg' alt='loading-animation'><br>
+                        Loading Trump Quote...
                     </div>
                 </div>
                 <div class="right-mid">
-                    <div id="weather-div" class="weather-div">Weather</div>
+                    <div id="weather-div" class="weather-div">
+                        <p class='weather-location'></p>
+                        <div class='image-temps'>
+                            <img class='weather-img' src='/images/rippleLoad.svg' alt='loading-animation'>
+                            <p class='temp-text'></p>
+                         </div>
+                        <p class='weather-description'>Fetching weather...</p>
+                    </div>
                 </div>
             </div>
             <div id="footer" class="footer">
@@ -53,6 +64,25 @@
             <div class="credit-logo"><img src="/images/openweather-seeklogo.com.svg" alt="openweather logo"><p> Powered by <a href="https://openweathermap.org/" alt='openweather wesite' target="_blank">OpenWeather</a></p></div>
             <div class="credit-logo"><img src="/images/tronalddump_850x850.png" alt="tronald dump logo"><p> Powered by <a href="https://api.tronalddump.io/" alt="website of Tronald Dump" target="_blank">Tronald Dump</a></p></div>
             <div class="credit-logo"><img src="/images/DevProfilePic.jpg" alt="photo of Franky" class="devpic"><p> Designed by <a href="https://api.tronalddump.io/" alt="GitHub of MrFranks" target="_blank">MrFranks</a></p></div>
+        </div>
+        <div class="options-modal" id="options-modal">
+            <div class="options-modal-title">
+                <h2>Edit Dashboard options</h2>
+                <i class="fa-solid fa-circle-xmark" id="close-options-modal"></i>
+            </div>
+            <div class="option">
+                <label for="crypto-list">Crypto assets:</label>
+                <select name="crypto-list" id="crypto-list" multiple>
+                </select>
+            </div>
+            <div class="option">
+                <label for="currency-list">Displayed currency:</label>
+                <select name="currency-list" id="currency-list">
+                    <option value="eur">Euro (EUR)</option>
+                    <option value="usd">US Dollar (USD)</option>
+                    <option value="jpy">Japanese Yen (JPY)</option>
+                </select>
+            </div>
         </div>
         <script src="index.js" type="module"></script>
     </body>

@@ -1,4 +1,5 @@
-export { getFullDate, getTime, hideShowInfoModal }
+import { getCoinList } from "./cryptofetch.js"
+export { getFullDate, getTime, hideShowInfoModal, hideShowOptionsModal }
 
 ////////GET FULL Date & time /////
 function getFullDate(){
@@ -17,4 +18,17 @@ function hideShowInfoModal() {
   document.getElementById('bigdiv').classList.toggle('blurred')
   document.getElementsByTagName('body')[0].classList.toggle('body-blurred')
   document.getElementById('info-modal').classList.toggle('show-modal')
+}
+
+function hideShowOptionsModal(event) {
+  if (event === 'open') {
+    const activeCoins = JSON.parse(localStorage.getItem('crypto-assets'))
+
+    
+    /* console.log(document.getElementById('multi-coins-list').children) */
+  }
+
+  document.getElementById('bigdiv').classList.toggle('blurred')
+  document.getElementsByTagName('body')[0].classList.toggle('body-blurred')
+  document.getElementById('options-modal').classList.toggle('show-modal')
 }

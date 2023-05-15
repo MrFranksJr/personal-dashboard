@@ -1,6 +1,6 @@
-export { coinsToFetch, currentCurrency }
+export { defaultCoins, currentCurrency }
 
-const coinsToFetch = [
+const defaultCoins = [
     'bitcoin',
     'ethereum',
     'litecoin',
@@ -10,4 +10,17 @@ const coinsToFetch = [
     'chainlink'
 ]
 
-const currentCurrency = 'eur'
+const currentCurrency = [
+    {
+        currency: 'eur',
+        sign: '€'
+    },
+    {
+        currency: 'usd',
+        sign: '$'
+    },
+    {
+        currency: 'jpy',
+        sign: '¥'
+    }
+]
