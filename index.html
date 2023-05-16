@@ -5,6 +5,7 @@
         <!-- CSS STUFF -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+        <link rel="stylesheet" href="/chosen_v1.8.7/chosen.css">
         <link rel="stylesheet" href="index.css">
         <!-- FONT STUFF -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,24 +67,38 @@
             <div class="credit-logo"><img src="/images/DevProfilePic.jpg" alt="photo of Franky" class="devpic"><p> Designed by <a href="https://api.tronalddump.io/" alt="GitHub of MrFranks" target="_blank">MrFranks</a></p></div>
         </div>
         <div class="options-modal" id="options-modal">
-            <div class="options-modal-title">
-                <h2>Edit Dashboard options</h2>
-                <i class="fa-solid fa-circle-xmark" id="close-options-modal"></i>
+            <div class="upper-options">
+                <div class="options-modal-title">
+                    <h2>Edit Dashboard options</h2>
+                    <i class="fa-solid fa-circle-xmark" id="close-options-modal"></i>
+                </div>
+                <div class="option">
+                    <label for="crypto-list">Crypto assets:</label>
+                    <select data-placeholder="Choose crypto assets..." class="chosen-select" multiple tabindex="3" name="crypto-list" id="crypto-list">
+                    </select>
+                </div>
+                <div class="option">
+                    <label for="currency-list">Displayed currency:</label>
+                    <select name="currency-list" id="currency-list">
+                        <option value="eur">Euro (EUR)</option>
+                        <option value="usd">US Dollar (USD)</option>
+                        <option value="jpy">Japanese Yen (JPY)</option>
+                    </select>
+                </div>
+                <div class="option">
+                    <label for="measurement-list">Units:</label>
+                    <select name="measurement-list" id="measurement-list">
+                        <option value="metric">Metric</option>
+                        <option value="imperial">Imperial</option>
+                    </select>
+                </div>
             </div>
-            <div class="option">
-                <label for="crypto-list">Crypto assets:</label>
-                <select name="crypto-list" id="crypto-list" multiple>
-                </select>
-            </div>
-            <div class="option">
-                <label for="currency-list">Displayed currency:</label>
-                <select name="currency-list" id="currency-list">
-                    <option value="eur">Euro (EUR)</option>
-                    <option value="usd">US Dollar (USD)</option>
-                    <option value="jpy">Japanese Yen (JPY)</option>
-                </select>
-            </div>
+            <button id="save-setting-btn" class="save-setting-btn">Save settings</button>
         </div>
         <script src="index.js" type="module"></script>
+        <script src="/chosen_v1.8.7/docsupport/jquery-3.2.1.min.js" type="text/javascript"></script>
+        <script src="/chosen_v1.8.7/chosen.jquery.js" type="text/javascript"></script>
+        <script src="/chosen_v1.8.7/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/chosen_v1.8.7/docsupport/init.js" type="text/javascript" charset="utf-8"></script>
     </body>
 </html>

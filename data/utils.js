@@ -23,9 +23,9 @@ function hideShowInfoModal() {
 function hideShowOptionsModal(event) {
   if (event === 'open') {
     const activeCoins = JSON.parse(localStorage.getItem('crypto-assets'))
-
-    
-    /* console.log(document.getElementById('multi-coins-list').children) */
+    jQuery(function($) {
+      $(".chosen-select").trigger("chosen:updated");
+    })
   }
 
   document.getElementById('bigdiv').classList.toggle('blurred')

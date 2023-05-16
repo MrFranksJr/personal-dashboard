@@ -349,6 +349,8 @@ main {
 .options-modal {
     display: none;
     position: fixed;
+    justify-content: space-between;
+    align-items: center;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -384,10 +386,21 @@ main {
     margin: 0;
 }
 
+.upper-options {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 .option {
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
+    width: 100%;
+}
+
+.save-setting-btn {
+    width: 50%;
 }
 
 label {
@@ -403,9 +416,14 @@ select {
     border: solid 1px #ced4da;
     background-color: white;
     position: relative;
+    width: 100%;
 }
 
 .show-modal {
     transition: 0.2s ease;
     display: flex;
+}
+
+#crypto_list_chosen {
+    width: 100%;
 }

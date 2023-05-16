@@ -1,10 +1,9 @@
-import { defaultCoins, currentCurrency } from "./coins.js"
-export { onloadFetchCrypto, getCoinList }
+export { getCoinList, fetchCrypto }
 
 let coinHTML = ''
 
 /////////////////ONLOAD FETCH CRYPTO & place in LET/////////////////////////
-function fetchCrypto(coinsToFetch, selectedCurrency) {
+function fetchCrypto(coinsToFetch, selectedCurrency, selectedUnit) {
   fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${selectedCurrency}&ids=${coinsToFetch}&order=market_cap_desc`)
     .then(res => {
         if (!res.ok) {
@@ -53,24 +52,6 @@ function fetchCrypto(coinsToFetch, selectedCurrency) {
     .catch(err => console.error(err))
 }
 
-function onloadFetchCrypto() {
-  //put default cryptolist in localstorage
-  if (localStorage.getItem('crypto-assets')) {
-    console.log('stuff is in localstorage!')
-
-    fetchCrypto(JSON.parse(localStorage.getItem('crypto-assets')), JSON.parse(localStorage.getItem('vs_currency')))
-  } else {
-    console.log('No stuff is in localstorage!')
-
-    localStorage.setItem('crypto-assets', JSON.stringify(defaultCoins))
-    localStorage.setItem('vs_currency', JSON.stringify('usd'))
-
-    document.getElementById('currency-list').value = JSON.parse(localStorage.getItem('vs_currency'))
-
-    fetchCrypto(JSON.parse(localStorage.getItem('crypto-assets')), JSON.parse(localStorage.getItem('vs_currency')))
-  }
-}
-
 /////////////////Load Coinlist/////////////////////////
 function getCoinList() {
 let cryptoCollection = ''
@@ -89,5 +70,8 @@ let cryptoCollection = ''
       document.getElementById('crypto-list').innerHTML = `
         ${cryptoCollection}
       `
+      jQuery(function($) {
+        $(".chosen-select").trigger("chosen:updated");
+      })
     })
 }

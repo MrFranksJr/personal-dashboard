@@ -1,32 +1,21 @@
-import { aCweatherAPI, openWeatherAPI, ipfyAPI } from "./data.js"
-export { geoSuccess, geoError, locationOptions, fetchWeather }
+import { aCweatherAPI, openWeatherAPI } from "./data.js"
+export { geoSuccess, geoError, locationOptions, fetchWeather, weatherCityId }
 
-let posLat = ''
-let posLng = ''
+let weatherDataJson = ''
+let weatherData = ''
+let weatherCityId = ''
 
 const locationOptions = {
   enableHighAccuracy: false, 
-  timeout: 10000,
-  maximumAge: 0
+  timeout: 15000
 }
 
 ////////////////////////OPEN WEATHER API //////////////////////////
-async function fetchWeather(pos, identifier) {
-  let weatherDataJson = ''
-  let weatherData = ''
-    if (identifier === 'backup') {
-      console.log('backup weather request')
-      posLat = pos.location.lat
-    posLng = pos.location.lng
-      weatherDataJson = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${pos.location.lat}&lon=${pos.location.lng}&units=metric&appid=${openWeatherAPI}`)
-      weatherData = await weatherDataJson.json()
-    } else {
-      console.log('primary weather request')
-      posLat = pos.coords.lat
-      posLng = pos.coords.lng
-      weatherDataJson = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&units=metric&appid=${openWeatherAPI}`)
-      weatherData = await weatherDataJson.json()
-    }
+async function fetchWeather(pos) {
+  console.log(`https://api.openweathermap.org/data/2.5/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&units=${JSON.parse(localStorage.getItem('units'))}&appid=${openWeatherAPI}`)
+  weatherDataJson = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&units=${JSON.parse(localStorage.getItem('units'))}&appid=${openWeatherAPI}`)
+  weatherData = await weatherDataJson.json()
+  weatherCityId = `https://openweathermap.org/city/${weatherData.id}`
 
   document.getElementById('weather-div').innerHTML = `
           <p class='weather-location'>${weatherData.name}, ${weatherData.sys.country}</p>
@@ -65,20 +54,12 @@ async function geoSuccess(pos) {
   
 async function geoError(err) {
     console.error(`ERROR (${err.code}): ${err.message}`)
-    try {
-      const fetchBackupLocation = await fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=${ipfyAPI}`)
-      const backUpLocationData = await fetchBackupLocation.json()
-
-      fetchWeather(backUpLocationData, 'backup')
-    } catch(error) {
-        document.getElementById('weather-div').innerHTML = `
-          <p class='weather-location'></p>
-          <div class='image-temps'>
-            <img class='weather-img-none' src='/images/no-location.svg' alt='cannot find location'>
-            <p class='temp-text'></p>
-          </div>
-          <p class='weather-description'>Location unavailable<br>Check your browser's<br>privacy or security settings.</p>
-          `
-        console.error('ERROR: your location is unavailable! ' + error)
-    }
+    document.getElementById('weather-div').innerHTML = `
+      <p class='weather-location'></p>
+      <div class='image-temps'>
+        <img class='weather-img-none' src='/images/no-location.svg' alt='cannot find location'>
+        <p class='temp-text'></p>
+      </div>
+      <p class='weather-description'>Location unavailable<br>Check your browser's<br>privacy or security settings.</p>
+    `
 }
