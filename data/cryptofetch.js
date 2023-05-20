@@ -73,5 +73,7 @@ let cryptoCollection = ''
       jQuery(function($) {
         $(".chosen-select").trigger("chosen:updated");
       })
+      localStorage.setItem('crypto-list', JSON.stringify(cryptoCollection))
+      localStorage.setItem('list-date', JSON.stringify(new Date()))
     })
 }

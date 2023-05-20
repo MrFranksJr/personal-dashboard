@@ -9,26 +9,30 @@ async function initLoad() {
     await getCoinList()
     getTime()
     document.getElementById('current-date').textContent = getFullDate()
-    if (localStorage.getItem('crypto-assets')) {
-        console.log('stuff is in localstorage!')
+    if (localStorage.getItem('has-preferences')) {
         fetchCrypto(JSON.parse(localStorage.getItem('crypto-assets')), JSON.parse(localStorage.getItem('vs_currency')))
+        navigator.geolocation.getCurrentPosition(fetchWeather, geoError, locationOptions)
 
         document.getElementById('currency-list').value = JSON.parse(localStorage.getItem('vs_currency'))
-
+        document.getElementById('measurement-list').value = JSON.parse(localStorage.getItem('units'))
     } else {
-        console.log('No stuff is in localstorage!')
-        //load default coins
-        localStorage.setItem('crypto-assets', JSON.stringify(defaultCoins))
-        //set default to euros
-        localStorage.setItem('vs_currency', JSON.stringify('eur'))
-        //set default to metric
-        localStorage.setItem('units', JSON.stringify('metric'))
-        //push the currency to the dropdown as the selected value
-        document.getElementById('currency-list').value = JSON.parse(localStorage.getItem('vs_currency'))
-        //launch fetchCrypto function
-        fetchCrypto(JSON.parse(localStorage.getItem('crypto-assets')), JSON.parse(localStorage.getItem('vs_currency')))
+         //load default coins
+         localStorage.setItem('crypto-assets', JSON.stringify(defaultCoins))
+         //set default to euros
+         localStorage.setItem('vs_currency', JSON.stringify('eur'))
+         //set default to metric
+         localStorage.setItem('units', JSON.stringify('metric'))
+         //set dropdown values
+         document.getElementById('currency-list').value = JSON.parse(localStorage.getItem('vs_currency'))
+         document.getElementById('measurement-list').value = JSON.parse(localStorage.getItem('units'))
+         jQuery(function($) {
+            $(".chosen-select").val('btc').trigger("chosen:updated");
+          })
+         //launch fetchCrypto function
+         fetchCrypto(JSON.parse(localStorage.getItem('crypto-assets')), JSON.parse(localStorage.getItem('vs_currency')))
+
+         localStorage.setItem('has-preferences', JSON.stringify('true'))
     }
-    navigator.geolocation.getCurrentPosition(fetchWeather, geoError, locationOptions)
     fetchTrumpQuote()
     setBackGround()
     setTimeout(() => {
