@@ -23,8 +23,7 @@ function hideShowOptionsModal(event) {
   if (event === 'open') {
     const activeCoins = JSON.parse(localStorage.getItem('crypto-assets'))
     jQuery(function($) {
-      $('#crypto-list').val(activeCoins);
-      $("#crypto-list").trigger("chosen:updated");
+      $("#crypto-list").val(activeCoins).trigger("chosen:updated");
     })
   }
 
