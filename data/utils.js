@@ -1,4 +1,3 @@
-import { getCoinList } from "./cryptofetch.js"
 export { getFullDate, getTime, hideShowInfoModal, hideShowOptionsModal }
 
 ////////GET FULL Date & time /////
@@ -24,7 +23,8 @@ function hideShowOptionsModal(event) {
   if (event === 'open') {
     const activeCoins = JSON.parse(localStorage.getItem('crypto-assets'))
     jQuery(function($) {
-      $(".chosen-select").trigger("chosen:updated");
+      $('#crypto-list').val(activeCoins);
+      $("#crypto-list").trigger("chosen:updated");
     })
   }
 

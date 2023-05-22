@@ -1,9 +1,21 @@
 export { getCoinList, fetchCrypto }
 
-let coinHTML = ''
-
 /////////////////ONLOAD FETCH CRYPTO & place in LET/////////////////////////
 function fetchCrypto(coinsToFetch, selectedCurrency, selectedUnit) {
+  let coinHTML = ''
+  let currencySymbol = ''
+  let currencyFlag = ''
+  if (selectedCurrency === 'eur') {
+    currencySymbol = '€'
+    currencyFlag = '🇪🇺'
+  } else if (selectedCurrency === 'usd') {
+    currencySymbol = '$'
+    currencyFlag = '🇺🇸'
+  } else if (selectedCurrency === 'jpy') {
+    currencySymbol = '¥'
+    currencyFlag = '🇯🇵'
+  }
+
   fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${selectedCurrency}&ids=${coinsToFetch}&order=market_cap_desc`)
     .then(res => {
         if (!res.ok) {
@@ -16,12 +28,12 @@ function fetchCrypto(coinsToFetch, selectedCurrency, selectedUnit) {
         coinHTML = coinHTML + `
         <button class='coin-btn'>
           <img src="${cryptoCoin.image}" alt="icon for the ${cryptoCoin.name} asset" class='coin-icon'>
-          <p>${cryptoCoin.name} (${cryptoCoin.symbol.toUpperCase()})&nbsp;&nbsp;&nbsp;<strong>€${cryptoCoin.current_price.toLocaleString("nl-BE")}</strong></p>
+          <p>${cryptoCoin.name} (${cryptoCoin.symbol.toUpperCase()})&nbsp;&nbsp;&nbsp;<strong>${currencySymbol} ${cryptoCoin.current_price.toLocaleString("nl-BE")}</strong></p>
         </button>
         <div class='coin-content'>
-          <p class='crypto-info'>🇪🇺&nbsp;&nbsp;&nbsp;€ ${cryptoCoin.current_price.toLocaleString("nl-BE")}</p>
-          <p class='crypto-info'>📈&nbsp;&nbsp;&nbsp;€ ${cryptoCoin.high_24h.toLocaleString("nl-BE")}</p>
-          <p class='crypto-info'>📉&nbsp;&nbsp;&nbsp;€ ${cryptoCoin.low_24h.toLocaleString("nl-BE")}</p>
+          <p class='crypto-info'>${currencyFlag}&nbsp;&nbsp;&nbsp;${currencySymbol} ${cryptoCoin.current_price.toLocaleString("nl-BE")}</p>
+          <p class='crypto-info'>📈&nbsp;&nbsp;&nbsp;${currencySymbol} ${cryptoCoin.high_24h.toLocaleString("nl-BE")}</p>
+          <p class='crypto-info'>📉&nbsp;&nbsp;&nbsp;${currencySymbol} ${cryptoCoin.low_24h.toLocaleString("nl-BE")}</p>
         </div>
         `
       }
@@ -51,6 +63,7 @@ function fetchCrypto(coinsToFetch, selectedCurrency, selectedUnit) {
     })
     .catch(err => console.error(err))
 }
+
 
 /////////////////Load Coinlist/////////////////////////
 function getCoinList() {

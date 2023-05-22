@@ -75,9 +75,21 @@ document.getElementById('close-options-modal').addEventListener('click', (e) => 
     hideShowOptionsModal('close')
 })
 
+document.getElementById('save-setting-btn').addEventListener('click', (e) => {
+    let selectedCurrencies = $('#crypto-list').val();
+    let displayedCurrency = document.getElementById('currency-list').value
+    let selectedUnits = document.getElementById('measurement-list').value
+
+    localStorage.setItem('crypto-assets', JSON.stringify(selectedCurrencies))
+    localStorage.setItem('vs_currency', JSON.stringify(displayedCurrency))
+    localStorage.setItem('units', JSON.stringify(selectedUnits))
+
+    fetchCrypto(JSON.parse(localStorage.getItem('crypto-assets')), JSON.parse(localStorage.getItem('vs_currency')))
+    navigator.geolocation.getCurrentPosition(fetchWeather, geoError, locationOptions)
+})
 
 
 
-    //ACCUWEATHER
-    /* navigator.geolocation.watchPosition(geoSuccess, geoError, locationOptions) */
-    //OPENWEATHER
+//ACCUWEATHER
+/* navigator.geolocation.watchPosition(geoSuccess, geoError, locationOptions) */
+//OPENWEATHER
