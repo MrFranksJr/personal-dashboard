@@ -3,36 +3,14 @@ import { setBackGround } from "./data/backgroundfetch.js"
 import { getCoinList, fetchCrypto } from "./data/cryptofetch.js"
 import { geoSuccess, geoError, locationOptions, fetchWeather, weatherCityId } from "./data/weatherfetch.js"
 import { fetchTrumpQuote } from "./data/trumpquote.js"
-import { defaultCoins } from "./data/coins.js"
+import { setupMemory } from "./data/setupmemory.js"
 
+///////////////////////////////////// INIT //////////////////////////////////////////////////
 async function initLoad() {
     await getCoinList()
     getTime()
     document.getElementById('current-date').textContent = getFullDate()
-    if (localStorage.getItem('has-preferences')) {
-        fetchCrypto(JSON.parse(localStorage.getItem('crypto-assets')), JSON.parse(localStorage.getItem('vs_currency')))
-        navigator.geolocation.getCurrentPosition(fetchWeather, geoError, locationOptions)
-
-        document.getElementById('currency-list').value = JSON.parse(localStorage.getItem('vs_currency'))
-        document.getElementById('measurement-list').value = JSON.parse(localStorage.getItem('units'))
-    } else {
-         //load default coins
-         localStorage.setItem('crypto-assets', JSON.stringify(defaultCoins))
-         //set default to euros
-         localStorage.setItem('vs_currency', JSON.stringify('eur'))
-         //set default to metric
-         localStorage.setItem('units', JSON.stringify('metric'))
-         //set dropdown values
-         document.getElementById('currency-list').value = JSON.parse(localStorage.getItem('vs_currency'))
-         document.getElementById('measurement-list').value = JSON.parse(localStorage.getItem('units'))
-         jQuery(function($) {
-            $(".chosen-select").val('btc').trigger("chosen:updated");
-          })
-         //launch fetchCrypto function
-         fetchCrypto(JSON.parse(localStorage.getItem('crypto-assets')), JSON.parse(localStorage.getItem('vs_currency')))
-
-         localStorage.setItem('has-preferences', JSON.stringify('true'))
-    }
+    setupMemory()
     fetchTrumpQuote()
     setBackGround()
     setTimeout(() => {
@@ -45,6 +23,8 @@ document.getElementById('crypto-div').onmouseleave = () => document.getElementBy
 initLoad()
 setInterval(()=> getTime(), 1000)
 
+
+/////////////////////////////////////EVENT LISTENERS//////////////////////////////////////////////////
 document.getElementById('weather-div').addEventListener('click', () => {
     if (weatherCityId) {
         window.open(weatherCityId, "_blank");
@@ -86,10 +66,12 @@ document.getElementById('save-setting-btn').addEventListener('click', (e) => {
 
     fetchCrypto(JSON.parse(localStorage.getItem('crypto-assets')), JSON.parse(localStorage.getItem('vs_currency')))
     navigator.geolocation.getCurrentPosition(fetchWeather, geoError, locationOptions)
+
+    document.getElementById('settings-saved').style.transform = 'translateY(0px)'
+    setTimeout(() => {
+        document.getElementById('settings-saved').style.transform = 'translateY(10px)'
+    }, 2000);
+    setTimeout(() => {
+        document.getElementById('settings-saved').style.transform = 'translateY(-150px)'
+    }, 2200);
 })
-
-
-
-//ACCUWEATHER
-/* navigator.geolocation.watchPosition(geoSuccess, geoError, locationOptions) */
-//OPENWEATHER

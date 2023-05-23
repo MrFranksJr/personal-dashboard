@@ -427,3 +427,18 @@ select {
 #crypto_list_chosen {
     width: 100%;
 }
+
+.settings-saved {
+    position: absolute;
+    text-align: center;
+    width: 300px;
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
+    background-color: #008f1f7a;
+    border-radius: 8px;
+    border: 1px solid #00ff37;
+    transition: transform 0.3s ease;
+    transform: translateY(-150px);
+}

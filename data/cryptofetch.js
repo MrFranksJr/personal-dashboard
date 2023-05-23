@@ -67,26 +67,37 @@ function fetchCrypto(coinsToFetch, selectedCurrency, selectedUnit) {
 
 /////////////////Load Coinlist/////////////////////////
 function getCoinList() {
-let cryptoCollection = ''
-  fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=100&page=1`)
-    .then(res => {
-        if (!res.ok) {
-            throw Error(`Something went wrong: ${res.status} - ${res.statusText}`)
-        }
-        return res.json()
-    })
-    .then(data => {
-      console.log(data)
-      for (let i=0; i < data.length; i++) {
-        cryptoCollection = cryptoCollection + `<option value="${data[i].id}">${data[i].name} (${data[i].symbol.toUpperCase()})</option>`
-      }
-      document.getElementById('crypto-list').innerHTML = `
-        ${cryptoCollection}
-      `
-      jQuery(function($) {
-        $(".chosen-select").trigger("chosen:updated");
+  let memoryDate = new Date(JSON.parse(localStorage.getItem('list-date'))).getTime()
+  let currentDate = new Date().getTime()
+  let cryptoCollection = ''
+
+  if (currentDate - memoryDate > 86400000) {
+    console.log('Need to fetch fresh cryptolist')
+    fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=100&page=1`)
+      .then(res => {
+          if (!res.ok) {
+              throw Error(`Something went wrong: ${res.status} - ${res.statusText}`)
+          }
+          return res.json()
       })
-      localStorage.setItem('crypto-list', JSON.stringify(cryptoCollection))
-      localStorage.setItem('list-date', JSON.stringify(new Date()))
+      .then(data => {
+        for (let i=0; i < data.length; i++) {
+          cryptoCollection = cryptoCollection + `<option value="${data[i].id}">${data[i].name} (${data[i].symbol.toUpperCase()})</option>`
+        }
+        document.getElementById('crypto-list').innerHTML = `
+          ${cryptoCollection}
+        `
+        jQuery(function($) {
+          $(".chosen-select").trigger("chosen:updated");
+        })
+        localStorage.setItem('crypto-list', JSON.stringify(cryptoCollection))
+        localStorage.setItem('list-date', JSON.stringify(new Date()))
+      })
+  } else {
+    console.log('reusing Crypto from memory')
+    document.getElementById('crypto-list').innerHTML = JSON.parse(localStorage.getItem('crypto-list'))
+    jQuery(function($) {
+      $(".chosen-select").trigger("chosen:updated");
     })
+  }
 }

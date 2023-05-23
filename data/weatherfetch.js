@@ -12,7 +12,6 @@ const locationOptions = {
 
 ////////////////////////OPEN WEATHER API //////////////////////////
 async function fetchWeather(pos) {
-  console.log(`https://api.openweathermap.org/data/2.5/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&units=${JSON.parse(localStorage.getItem('units'))}&appid=${openWeatherAPI}`)
   weatherDataJson = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&units=${JSON.parse(localStorage.getItem('units'))}&appid=${openWeatherAPI}`)
   weatherData = await weatherDataJson.json()
   weatherCityId = `https://openweathermap.org/city/${weatherData.id}`
@@ -60,6 +59,6 @@ async function geoError(err) {
         <img class='weather-img-none' src='/images/no-location.svg' alt='cannot find location'>
         <p class='temp-text'></p>
       </div>
-      <p class='weather-description'>Location unavailable<br>Check your browser's<br>privacy or security settings.</p>
+      <p class='weather-description'>Location unavailable<br><br>Try again later<br>Or check your browser's<br>privacy or security settings.</p>
     `
 }
