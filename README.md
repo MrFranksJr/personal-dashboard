@@ -1,8 +1,8 @@
+*Jun 20, 2023 - Franky Jr Blondeel*
+
 <p align="center">
 <img alt="banner image" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/Banner.png">
 </p>
-
-*Jun 20, 2023 - Franky Jr Blondeel*
 
 # dashboard – a chrome extension
 
@@ -41,14 +41,6 @@ Some of the stretch goals given by the lecturer included:
 </p>
 
 And I think I delivered. Let's dive a bit deeper...
-
-This color generator project was a nice closure to a very interesting chapter of the course. Basically applying what we have seen before. I'll list the topics once more below, you can also find some more detail in my BlogSpace repository.
-<p align="center">
-<img alt="topics discussed" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/topics.png">
-</p>
-
-I'll dive into some more details about this specific project below.
-
 
 ## Approach and Development
 
