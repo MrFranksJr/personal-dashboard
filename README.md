@@ -66,13 +66,7 @@ But I've gotta say, I really grew to love unsplash, and it just cheers me up usi
 
 ### Cryptos
 Now, I'm not too big into crypto myself. I have some and I have dabbled into NFTs too. The Web3 technology as a whole I find real interesting though, and it is one of the future paths I see myself taking as a developer.
-However, for this assignment, 
-
-
-
-
-
-
+However, for this assignment, we were asked to integrate with the CoinGecko API.
 
 
 
@@ -150,7 +144,7 @@ Implementing this then brought with it a whole set of new problems 😂 I will n
 
 Below are a couple of examples of the result. Quite proud of this one. Cracking tougher problems is always interesting and you learn a lot along the way.
 <p align="center">
-<img alt="responsive reacton of the app" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/responsive.gif">
+<img alt="responsive reaction of the app" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/responsive.gif">
 </p>
 
 <p align="center">
