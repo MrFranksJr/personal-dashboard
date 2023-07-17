@@ -9,3 +9,4 @@ DESIGNs
 manifest
 node_modules
 data/data.js
+.env

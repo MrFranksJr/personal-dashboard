@@ -5,6 +5,7 @@ import { geoSuccess, geoError, locationOptions, fetchWeather, weatherCityId } fr
 import { fetchTrumpQuote } from "./data/trumpquote.js"
 import { setupMemory } from "./data/setupmemory.js"
 
+
 ///////////////////////////////////// INIT //////////////////////////////////////////////////
 async function initLoad() {
     await getCoinList()
