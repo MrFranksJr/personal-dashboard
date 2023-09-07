@@ -1,4 +1,5 @@
 *Jun 20, 2023 - Franky Jr Blondeel*
+*Updated: Sep 07, 2023 - Franky Jr Blondeel (added info about extra options and updated some links)*
 
 <p align="center">
 <img alt="banner image" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/Banner.png">
@@ -44,7 +45,7 @@ And I think I delivered. Let's dive a bit deeper...
 
 ## Approach and Development
 
-### The Clock
+### The clock
 
 I started out with the simple stuff. The date & time is simple Javascript, and it gets updated every second, so it stays up to date with the current date and time
 
@@ -65,88 +66,110 @@ But I've gotta say, I really grew to love unsplash, and it just cheers me up usi
 </p>
 
 ### Cryptos
+
 Now, I'm not too big into crypto myself. I have some and I have dabbled into NFTs too. The Web3 technology as a whole I find real interesting though, and it is one of the future paths I see myself taking as a developer.
-However, for this assignment, we were asked to integrate with the CoinGecko API.
+However, for this assignment, we were asked to integrate with the CoinGecko API to pull down crypto information.
 
-
-
-
-
-
-
-
-
-
-
+Fairly straightforward implementation as the Coingecko API documentation is very clear.
 <p align="center">
-<img alt="example of a colorapi response" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/response.png">
+<img alt="example of crypto information in the dashboard" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/cryptos.png">
 </p>
 
-Visualizing everything that is returned, was quite easy.
+### Weather
+Weather is powered by the OpenWeather API and is driven by the user's location. Outside of interacting with the (very straightforward) OpenWeather API, I learnt a lot about the Geolocation API that is supported by modern browsers.
 
-### First bump: legibility
-One interesting issue, is that you cannot predict what color will be returned by the API, and therefore, you cannot know what color the text on screen should have.
-After some googling, I found this very interesting repository on github that gave me exactly what I was after: auto contrasting colors: [onury / invert-color](https://github.com/onury/invert-color)
+Pulling down the weather was a very interesting journey altogether for me, as I was working on this assignment in a more remote region during my holidays in Italy. What I noticed there is that the Geolocation API would very often time out when trying to determine my location. I started searching for various fall-back mechanisms or some error handling to provide a better user experience all around. Unfortunately, it was not as easy as I had thought and very often the alternative geolocation API's out there required investing money.
 
-Using NPM I could very easily import the package and use it in my project! This is also the very first timeI used a 'foreign' package (not really, but you know what I mean).
-This also meant I had to run an actual build for the first time using Vite, which is the framework I tend to use. Which gave me some problems in the end, I won't go into it too deep, but I was able to solve them.
+So in the end, I decided to opt for an event that gets triggered when the Geolocation API times out, and it will display an error and updated graphic to reflect the error.
 
-Using this borrowed package though, I could now very easily return a #FFF or #000 based on the contrast calculation returned by invert-colors. Really handy!
+Alternatively, I wanted to implement a manual location selection option in the user preferences menu (which I'll discuss in detail later), but it did not make the cut in the end as I already implemented different other preferences that had me learning more than a simple weather location option would've ever managed to do.
 <p align="center">
-<img alt="example different font colors in the same color scheme" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/contrast.png">
+<img alt="The openweather api" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/weather.png">
 </p>
 
-### Improving UX
-Next up, with all colors loading in correctly and being displayed on the screen correctly, I wanted to improve the UX a little bit.
-Mainly:
-* Some animations while data is loading (what if someone has slow internet?)
-* Minimalist approach: Less buttons, less text
-* Transitions or things appearing on the screen should be smooth.
+I played around with various weather services out there, mostly because I initially did not really like the graphics displayed by the OpenWeatherAPI. But hey, graphics are just that, and all other weather services I found out there to interact with were never as 'friendly' when it came to their pricing as OpenWeather was.
+When a user clicks the graphic, they also get taken to a page with a more detailed weather forecast.
 
-I started with a small logo animation, when users hit the site first, this allows the colors in the background to be loaded already.
+This was an incredibly interesting part of the journey and I'm so glad I took the time to finish this feature the right way! (IMO)
+
+
+### An inspiring quote
+
+Just to cram some more APIs into the page, one idea I had was to add a 'daily' quote kinda thing on the front of the page. I looked at the various options out there, and since I discovered that Trump was running for president again, I wondered if there was any API out there that collected Trump's best work out there.
+Queue: Tronald Dump API. This API collected Trump's worst(/best?) tweets out there and collected them. I thought this would be the funniest option, so I went for that. I've gotta say, I'm really enjoying my Trump tweets!
 <p align="center">
-<img alt="landing page animations" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/landing.gif">
+<img alt="The openweather api" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/tronald.png">
 </p>
 
-Next up, when user loaded in a new palette, I thought it would be nice if the colors came in gradually. So I built a randomizer, which returns a random amount of milliseconds every time you fetch new colors. It just looks a lot better :)
+## Stretch goals and extra's
+
+The app wouldn't be complete with a couple of my own touches to it.
+Obviously, I wanted it to feel nice to interact with, so I added some visual queues and animations to make everything flow better.
+
+Also, as a good developer, I needed to credit my sources of the the data. So I implemented a small info-modal that the user can access via a button on the bottom.
+
+The main question for me though, was 'How could I improve the app for the user? Make it more personable?'. Especially because that is just what it is: it's a personal dashboard and without any customizations, the thing would basically be useless to anyone other but myself.
+This then introduced the question: how will I store the personalizations. Etc..etc.. New ideas flow and new problems to solve arrive with it 😅
+
+But this is fun, and it's exactly where I want to be!
+
+### Introducing LocalStorage + Determining the scope
+
+Since I needed a spot to save any potential settings by the user, I looked around. Did I need to introduce a database? Probably not. So LocalStorage it is. It works well with the concept of this thing being a Chrome Extension too.
+
+So I designed and implemented a quick Preferences modal, where the user would edit their settings.
+
+Next up, I needed to decide on the scope of the settings that they could edit. Now, I could've gone very far with this. But again, I'm on a learning journey here, so I wanted to pick the items that would give me the biggest gains in knowledge and deep dives into the unknown.
+
+The way I went to work here is to examine what other options the APIs I used had on offer. Were there any extra options I could pass to pull down a more personal experience for my users?
+
+What I decided was to let the user determine which crypto assets to sync (which introduced a lot of new questions and problems!!).
+On top of that, I wanted my user to be able to switch which currency they display when looking at the values of the cryptos.
+
+For the weather, I already said I had the idea to let the user choose their custom location, but I dropped this as it would prove to be quite some (dare I say) uninteresting work 🙊
+What I did give the user is the option to determine their units to display the weather in.
+
+From that point on, I decided on the simple datastructure in my LocalStorage, and decided on a couple of default values to load in upon first load. Et voila, the preferences modal was born (sort off...).
 <p align="center">
-<img alt="gradual loading of colors" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/loadingColors.gif">
+<img alt="the preferences modal" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/preferences.png">
 </p>
 
-Also, I reduced the amount of data that is initially visible on the screen. Meaning, other color spaces are hidden, unless the user hovers over the relevant color block. Also on the text, I added a small transition just to make it all smoother.
+### The Crypto-list options
+
+Now... the feature to select which cryptos you want to display on the screen was a difficult one to complete. Especially since I found out that a 'simple' multi-select dropdown (preferably WITH search) does not exist, at least not with standard HTML and CSS tools! That is crazy! And yet here we are in 2023.
+So I had to find my own solution out there. Ended up banking on Chosen, some sort of JQuery plugin. It must've been over 10 years since I used JQuery, but it was an interesting journey getting it to play nice with the rest of my more modern JS.
+
+It worked though. And it works well.
+Fun fact: the source for generating/populating the list is also CoinGecko. I launch an API call on launch and fetch the top 100 most popular crypto's from their site.
+
+Additionally, I allowed the user to select their currency of choice to display the value of their favorite crypto. Their choice is also clearly reflected with an emoji in the UI. Pretty neat!
 <p align="center">
-<img alt="text appearing on hover" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/hoverEffect.gif">
+<img alt="crypto to dollar" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/dollar.png">
+<img alt="crypto to euro" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/euro.png">
+<img alt="crypto to japanese yen" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/yen.png">
 </p>
 
-The app came alive, I liked it!
+### The Weather options
 
+For the weather, I kept it very simple: Users can change the units that are displayed on their screens.
+It's a very simple adjustment in the code and gives the users something extra. 
 
-### Implementing Copy value
-I was able to add the copy paste feature in pretty quickly, because I had added it to a previous app before, the password generator I built a couple of months back.
-I borrowed the code, adjusted it, made it react to the responsive nature of the app too. Quick win, onto the next.
+Like I said, I contemplated a lot of different ideas, especially to do with the location of the user. However, I considered this scope-creep for now, and these options are on my backlog. So many ideas, so little time.
 <p align="center">
-<img alt="responsive to adding extra colors" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/copypaste.gif">
+<img alt="imperial weather" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/imperial.png">
+<img alt="metric weather" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/metric.png">
 </p>
 
+### Optimizations and performance
 
-### Mobile Experience
-Now that the entire base site seemed to be setup; I went and looked at how I would tackle the mobile experience.
-Of course, the options would have to be reduced inside some hamburger menu somewhere, but there were additional challenged here.
+Performance is key! So I did some small optimizations as I was adding features to the app. One such thing optimization are for instance the list of the most popular cryptos. Or the location of the user. Since the purpose of this app is to live as a 'new tab' dashboard in Chrome, this is typically not information I need to fetch every single time. User's can potentially open up 100's of tabs in an hour and it would just slow things down unnecessarily. (and not in the least rack up unnecessary API calls to my different providers).
+So what I did is stored the date and time of the last fetch and decided on a specific amount of time for my app to keep using this data. Once the data is older than X-number of milliseconds, I launch a new fetch to get updated data.
 
-I could (as far as I know at least...) not opt for a standard media query approach here, because I could not predict how many colors the user would have on the screen. The amount of colors on the screen has a direct impact on how readable the text would be inside the bars.
-Coolors does something similar, when the bars get thin enough, the text flips 90degrees, or even the bars go all from a vertical orientation to a horizontal one.
+I also tried to keep my code as clean and as modular as possible. Writing this months and months after finishing the assignment, I can honestly say it was a nice experience going back into my code to discover how I had solved certain issues.
 
-So I decided to approach it in a same way.
-Therefore, every time the screen is resized OR every time the user changes the amount of colors they want returned, I make a calculation where I take the total width of the screen, and divide it by the number of colors requested.
-The returned value lets me know how wide the bars would be. And therefore, I could then decide what I do with the text, and the bars themselves.
 
-Implementing this then brought with it a whole set of new problems 😂 I will not bore you with all the details, most important message is that everything got ironed out in the end.
+## Conclusions
 
-Below are a couple of examples of the result. Quite proud of this one. Cracking tougher problems is always interesting and you learn a lot along the way.
-<p align="center">
-<img alt="responsive reaction of the app" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/responsive.gif">
-</p>
-
-<p align="center">
-<img alt="responsive to adding extra colors" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/extraColors.gif">
-</p>
+There is so much I can say about this assignment! I discovered so many new thing that I had never heard about, it was amazing. Also, the fact that I now daily-drive this extension in my chrome browser is awesome too. To be reminded of your own work, every day, is sooo nice!
+Additionally, new problems and things to learn basically automatically offer themselves up as you're thinking of new nice things to implement. There's always a new problem that comes with a new feature. And things are never as easy as they at first seemed, that's for sure.
+But this is a learning journey and that is what it's all about! I loved every second of digging and trying. And even when it was frustrating, it STILl ended up being enjoyable in the end. Just because I know that I'm just a tiny bit better at this than I was before. LOVE-IT!
