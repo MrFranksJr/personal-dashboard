@@ -97,8 +97,14 @@ This was an incredibly interesting part of the journey and I'm so glad I took th
 
 Just to cram some more APIs into the page, one idea I had was to add a 'daily' quote kinda thing on the front of the page. I looked at the various options out there, and since I discovered that Trump was running for president again, I wondered if there was any API out there that collected Trump's best work out there.
 Queue: Tronald Dump API. This API collected Trump's worst(/best?) tweets out there and collected them. I thought this would be the funniest option, so I went for that. I've gotta say, I'm really enjoying my Trump tweets!
+
+#### Update: January 2025
+
+I have spotted the fact that Tronald Dump seemed unreachable for a while now and quickly implemented a new api connection to [WhatDoesTrumpThink.com](https://whatdoestrumpthink.com/).
+Functionally, nothing really changed. But go give these guys a visit, they're able to generate some funny, personalized, quotes.
+API reference can be found [here](https://whatdoestrumpthink.com/api-docs/index.html).
 <p align="center">
-<img alt="The openweather api" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/tronald.png">
+<img alt="The openweather api" src="https://raw.githubusercontent.com/MrFranksJr/MrFranksJr/main/assets/personal-dashboard/donald.png">
 </p>
 
 ## Stretch goals and extra's

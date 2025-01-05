@@ -336,6 +336,16 @@ main {
     color: unset;
 }
 
+.last-updated {
+    font-size: 0.7rem;
+    font-style: italic;
+    align-self: center;
+}
+
+.last-updated-date {
+    color: #616161;
+}
+
 .blurred {
     transition: 0.2s ease;
     filter: blur(10px);
