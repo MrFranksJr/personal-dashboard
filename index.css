@@ -221,6 +221,10 @@ main {
     line-height: 2.8rem;
 }
 
+.trumpTitle {
+    font-size: 0.75rem;
+}
+
 .signed {
     width: 100%;
     margin-top: 1.5rem;
