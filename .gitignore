@@ -10,3 +10,5 @@ manifest
 node_modules
 data/data.js
 .env
+.DS_Store
+.DS_Store
