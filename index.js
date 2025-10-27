@@ -5,74 +5,81 @@ import { geoSuccess, geoError, locationOptions, fetchWeather, weatherCityId } fr
 import { fetchTrumpQuote } from "./data/trumpquote.js"
 import { setupMemory } from "./data/setupmemory.js"
 
-
-///////////////////////////////////// INIT //////////////////////////////////////////////////
-async function initLoad() {
+// Initialize app
+async function init() {
     await getCoinList()
     getTime()
     document.getElementById('current-date').textContent = getFullDate()
     setupMemory()
     fetchTrumpQuote()
     setBackGround()
+    
     setTimeout(() => {
         document.getElementById('crypto-div').style.backgroundColor = '#00000040'
     }, 3000)
 }
-document.getElementById('crypto-div').onmouseover = () => document.getElementById('crypto-div').style.backgroundColor = '#000000a0'
-document.getElementById('crypto-div').onmouseleave = () => document.getElementById('crypto-div').style.backgroundColor = '#00000040'
 
-initLoad()
-setInterval(()=> getTime(), 1000)
+// Crypto div hover effects
+const cryptoDiv = document.getElementById('crypto-div')
+cryptoDiv.onmouseover = () => cryptoDiv.style.backgroundColor = '#000000a0'
+cryptoDiv.onmouseleave = () => cryptoDiv.style.backgroundColor = '#00000040'
 
+// Initialize and start timer
+init()
+setInterval(getTime, 1000)
 
-/////////////////////////////////////EVENT LISTENERS//////////////////////////////////////////////////
+// Event handlers
 document.getElementById('weather-div').addEventListener('click', () => {
-    if (weatherCityId) {
-        window.open(weatherCityId, "_blank");
-    }
+    if (weatherCityId) window.open(weatherCityId, "_blank")
 })
 
-document.addEventListener('keydown', function(e) {
-    if(e.key == 'Escape'){
-        if (document.getElementById('info-modal').classList.contains('show-modal')) {
-            hideShowInfoModal()
-        } else if (document.getElementById('options-modal').classList.contains('show-modal')) {
-            hideShowOptionsModal('close')
-        }
-    }
-})
-
-document.addEventListener('click', (e) => {
-    if (document.getElementById('info-modal').classList.contains('show-modal')) {
+document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return
+    
+    const infoModal = document.getElementById('info-modal')
+    const optionsModal = document.getElementById('options-modal')
+    
+    if (infoModal.classList.contains('show-modal')) {
         hideShowInfoModal()
-    } else if (!document.getElementById('info-modal').classList.contains('show-modal') && e.target.id === 'info-button') {
+    } else if (optionsModal.classList.contains('show-modal')) {
+        hideShowOptionsModal('close')
+    }
+})
+
+document.addEventListener('click', e => {
+    const infoModal = document.getElementById('info-modal')
+    const showingInfo = infoModal.classList.contains('show-modal')
+    
+    if (showingInfo) {
+        hideShowInfoModal()
+    } else if (!showingInfo && e.target.id === 'info-button') {
         hideShowInfoModal()
     } else if (e.target.id === 'options-button' && !document.getElementById('options-modal').classList.contains('show-modal')) {
         hideShowOptionsModal('open')
     }
 })
 
-document.getElementById('close-options-modal').addEventListener('click', (e) => {
-    hideShowOptionsModal('close')
-})
+document.getElementById('close-options-modal').addEventListener('click', () => hideShowOptionsModal('close'))
 
-document.getElementById('save-setting-btn').addEventListener('click', (e) => {
-    let selectedCurrencies = $('#crypto-list').val();
-    let displayedCurrency = document.getElementById('currency-list').value
-    let selectedUnits = document.getElementById('measurement-list').value
+document.getElementById('save-setting-btn').addEventListener('click', () => {
+    const settings = {
+        'crypto-assets': $('#crypto-list').val(),
+        'vs_currency': document.getElementById('currency-list').value,
+        'units': document.getElementById('measurement-list').value
+    }
 
-    localStorage.setItem('crypto-assets', JSON.stringify(selectedCurrencies))
-    localStorage.setItem('vs_currency', JSON.stringify(displayedCurrency))
-    localStorage.setItem('units', JSON.stringify(selectedUnits))
+    // Save settings to localStorage
+    Object.entries(settings).forEach(([key, value]) => {
+        localStorage.setItem(key, JSON.stringify(value))
+    })
 
+    // Update displays
     fetchCrypto(JSON.parse(localStorage.getItem('crypto-assets')), JSON.parse(localStorage.getItem('vs_currency')))
     navigator.geolocation.getCurrentPosition(fetchWeather, geoError, locationOptions)
 
-    document.getElementById('settings-saved').style.transform = 'translateY(0px)'
-    setTimeout(() => {
-        document.getElementById('settings-saved').style.transform = 'translateY(10px)'
-    }, 2000);
-    setTimeout(() => {
-        document.getElementById('settings-saved').style.transform = 'translateY(-150px)'
-    }, 2200);
+    // Show confirmation message
+    const savedMsg = document.getElementById('settings-saved')
+    savedMsg.style.transform = 'translateY(0px)'
+    setTimeout(() => savedMsg.style.transform = 'translateY(10px)', 2000)
+    setTimeout(() => savedMsg.style.transform = 'translateY(-150px)', 2200)
 })
