@@ -45,11 +45,12 @@ main {
     left: 1rem;
     height: fit-content;
     width: fit-content;
-    background-color: #000000a0;
+    background-color: #00000040;
     border-radius: 8px;
-    backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
-    transition: 0.5s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: background-color 0.1s ease;
+    transform: translateZ(0);
 }
 
 .crypto-div:hover {
@@ -66,7 +67,8 @@ main {
     background-color: transparent;
     border: none;
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: background-color 0.1s ease;
+    transform: translateZ(0);
 }
 
 .coin-btn:after {
@@ -74,7 +76,6 @@ main {
     margin-left: 1rem;
     color: #FFF;
     font-size: 1.5em;
-    transition: 0.3s ease;
 }
 
 .active:after {
@@ -83,7 +84,7 @@ main {
 
 .active, 
 .coin-btn:hover {
-    background-color: #00000040;
+    background-color: #00000060;
 }
 
 .coin-icon {
@@ -94,12 +95,13 @@ main {
 
 .coin-content {
     padding-left: 58px;
-    background-color: #00000040;
+    background-color: #00000060;
     width: 100%;
     max-height: 0;
     overflow: hidden;
     border-radius: 0 0 8px 8px;
-    transition: max-height 0.2s ease-out;
+    transition: max-height 0.15s ease-out;
+    transform: translateZ(0);
 }
 
 .crypto-info {
@@ -114,11 +116,12 @@ main {
     align-items: center;
     padding: 1rem 1.5rem;
     text-shadow: 0px 0px 10px #616161;
-    backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border-radius: 8px;
     cursor: pointer;
-    transition: 0.5s ease;
+    transition: background-color 0.1s ease;
+    transform: translateZ(0);
 }
 
 .weather-div:hover {
@@ -224,8 +227,8 @@ main {
     line-height: 2.8rem;
     text-shadow: 0px 0px 10px #2d2d2d;
     border-top: #E0CA3C solid 8px;
-    backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border-radius: 8px;
 }
 
@@ -297,7 +300,8 @@ main {
     font-size: 1.5rem;
     color: rgba(255, 255, 255, 0.5);
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: color 0.2s ease;
+    will-change: color;
 }
 
 .settings-info button:hover {
@@ -305,7 +309,8 @@ main {
 }
 
 .fa-gear {
-    transition: 0.3s ease;
+    transition: transform 0.2s ease;
+    will-change: transform;
 }
 
 .settings-info button:hover .fa-gear {

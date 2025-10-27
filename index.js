@@ -19,11 +19,6 @@ async function init() {
     }, 3000)
 }
 
-// Crypto div hover effects
-const cryptoDiv = document.getElementById('crypto-div')
-cryptoDiv.onmouseover = () => cryptoDiv.style.backgroundColor = '#000000a0'
-cryptoDiv.onmouseleave = () => cryptoDiv.style.backgroundColor = '#00000040'
-
 // Initialize and start timer
 init()
 setInterval(getTime, 1000)

@@ -24,20 +24,31 @@ function fetchCrypto(coinsToFetch, selectedCurrency, selectedUnit) {
         return res.json()
     })
     .then(data => {
+      const fragment = document.createDocumentFragment()
+      
       for (let cryptoCoin of data) {
-        coinHTML = coinHTML + `
-        <button class='coin-btn'>
+        const coinButton = document.createElement('button')
+        coinButton.className = 'coin-btn'
+        coinButton.innerHTML = `
           <img src="${cryptoCoin.image}" alt="icon for the ${cryptoCoin.name} asset" class='coin-icon'>
           <p>${cryptoCoin.name} (${cryptoCoin.symbol.toUpperCase()})&nbsp;&nbsp;&nbsp;<strong>${currencySymbol} ${cryptoCoin.current_price.toLocaleString("nl-BE")}</strong></p>
-        </button>
-        <div class='coin-content'>
+        `
+        
+        const coinContent = document.createElement('div')
+        coinContent.className = 'coin-content'
+        coinContent.innerHTML = `
           <p class='crypto-info'>${currencyFlag}&nbsp;&nbsp;&nbsp;${currencySymbol} ${cryptoCoin.current_price.toLocaleString("nl-BE")}</p>
           <p class='crypto-info'>📈&nbsp;&nbsp;&nbsp;${currencySymbol} ${cryptoCoin.high_24h.toLocaleString("nl-BE")}</p>
           <p class='crypto-info'>📉&nbsp;&nbsp;&nbsp;${currencySymbol} ${cryptoCoin.low_24h.toLocaleString("nl-BE")}</p>
-        </div>
         `
+        
+        fragment.appendChild(coinButton)
+        fragment.appendChild(coinContent)
       }
-      document.getElementById('crypto-div').innerHTML = coinHTML
+      
+      const cryptoDiv = document.getElementById('crypto-div')
+      cryptoDiv.innerHTML = ''
+      cryptoDiv.appendChild(fragment)
     })
     .then(function() {
       const coinBtn = document.getElementsByClassName("coin-btn")
