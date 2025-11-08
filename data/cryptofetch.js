@@ -1,20 +1,16 @@
 export { getCoinList, fetchCrypto }
 
+const cryptoDiv = document.getElementById('crypto-div')
+
 /////////////////ONLOAD FETCH CRYPTO & place in LET/////////////////////////
 function fetchCrypto(coinsToFetch, selectedCurrency, selectedUnit) {
-  let coinHTML = ''
-  let currencySymbol = ''
-  let currencyFlag = ''
-  if (selectedCurrency === 'eur') {
-    currencySymbol = '€'
-    currencyFlag = '🇪🇺'
-  } else if (selectedCurrency === 'usd') {
-    currencySymbol = '$'
-    currencyFlag = '🇺🇸'
-  } else if (selectedCurrency === 'jpy') {
-    currencySymbol = '¥'
-    currencyFlag = '🇯🇵'
+  const currencyMap = {
+    'eur': { symbol: '€', flag: '🇪🇺' },
+    'usd': { symbol: '$', flag: '🇺🇸' },
+    'jpy': { symbol: '¥', flag: '🇯🇵' }
   }
+  
+  const { symbol: currencySymbol, flag: currencyFlag } = currencyMap[selectedCurrency] || currencyMap.usd
 
   fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${selectedCurrency}&ids=${coinsToFetch}&order=market_cap_desc`)
     .then(res => {
@@ -26,7 +22,7 @@ function fetchCrypto(coinsToFetch, selectedCurrency, selectedUnit) {
     .then(data => {
       const fragment = document.createDocumentFragment()
       
-      for (let cryptoCoin of data) {
+      data.forEach(cryptoCoin => {
         const coinButton = document.createElement('button')
         coinButton.className = 'coin-btn'
         coinButton.innerHTML = `
@@ -44,35 +40,34 @@ function fetchCrypto(coinsToFetch, selectedCurrency, selectedUnit) {
         
         fragment.appendChild(coinButton)
         fragment.appendChild(coinContent)
-      }
+      })
       
-      const cryptoDiv = document.getElementById('crypto-div')
       cryptoDiv.innerHTML = ''
       cryptoDiv.appendChild(fragment)
     })
-    .then(function() {
-      const coinBtn = document.getElementsByClassName("coin-btn")
-
-      for (let i = 0; i < coinBtn.length; i++) {
-        coinBtn[i].addEventListener("click", function() {
-          for (let contentDiv of document.getElementsByClassName('coin-content')) {
-            if(contentDiv != this.nextElementSibling){
-              if(contentDiv.style.maxHeight) {
-                contentDiv.previousElementSibling.classList.toggle("active")
-              }
-              contentDiv.style.maxHeight = null
-            }
-          }
-          this.classList.toggle("active")
-          if (this.nextElementSibling.style.maxHeight){
-            this.nextElementSibling.style.maxHeight = null
-          } else {
-            this.nextElementSibling.style.maxHeight = this.nextElementSibling.scrollHeight + "px"
-          } 
-        })
-      }
+    .then(() => {
+      // Use event delegation instead of individual listeners
+      cryptoDiv.addEventListener('click', handleCoinClick)
     })
     .catch(err => console.error(err))
+}
+
+function handleCoinClick(e) {
+  if (!e.target.closest('.coin-btn')) return
+  
+  const button = e.target.closest('.coin-btn')
+  const contentDivs = document.querySelectorAll('.coin-content')
+  
+  contentDivs.forEach(contentDiv => {
+    if (contentDiv !== button.nextElementSibling && contentDiv.style.maxHeight) {
+      contentDiv.previousElementSibling.classList.remove('active')
+      contentDiv.style.maxHeight = null
+    }
+  })
+  
+  button.classList.toggle('active')
+  const content = button.nextElementSibling
+  content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + 'px'
 }
 
 

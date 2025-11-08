@@ -1,5 +1,11 @@
 export { getFullDate, getTime, hideShowInfoModal, hideShowOptionsModal }
 
+const timeElement = document.getElementById('current-time')
+const bigDiv = document.getElementById('bigdiv')
+const body = document.body
+const infoModal = document.getElementById('info-modal')
+const optionsModal = document.getElementById('options-modal')
+
 ////////GET FULL Date & time /////
 function getFullDate(){
   const d = new Date()
@@ -8,15 +14,14 @@ function getFullDate(){
 
 function getTime() {
   const d = new Date()
-  let fullTime = d.toLocaleString("en-GB", {timeStyle: "short"})
-
-  document.getElementById('current-time').textContent = fullTime
+  const fullTime = d.toLocaleString("en-GB", {timeStyle: "short"})
+  timeElement.textContent = fullTime
 }
 
 function hideShowInfoModal() {
-  document.getElementById('bigdiv').classList.toggle('blurred')
-  document.getElementsByTagName('body')[0].classList.toggle('body-blurred')
-  document.getElementById('info-modal').classList.toggle('show-modal')
+  bigDiv.classList.toggle('blurred')
+  body.classList.toggle('body-blurred')
+  infoModal.classList.toggle('show-modal')
 }
 
 function hideShowOptionsModal(event) {
@@ -27,7 +32,7 @@ function hideShowOptionsModal(event) {
     })
   }
 
-  document.getElementById('bigdiv').classList.toggle('blurred')
-  document.getElementsByTagName('body')[0].classList.toggle('body-blurred')
-  document.getElementById('options-modal').classList.toggle('show-modal')
+  bigDiv.classList.toggle('blurred')
+  body.classList.toggle('body-blurred')
+  optionsModal.classList.toggle('show-modal')
 }
