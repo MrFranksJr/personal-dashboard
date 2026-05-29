@@ -18,7 +18,7 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     color: rgb(255, 255, 255);
-    text-shadow: 0px 0px 50px #616161;
+    text-shadow: 0 0 50px #616161;
     -webkit-font-smoothing: antialiased;
     font-family: 'Poppins', sans-serif;
     height: 100vh;
@@ -63,7 +63,7 @@ main {
     align-items: center;
     padding: 0.5rem 1rem;
     color: white;
-    text-shadow: 0px 0px 50px #616161;
+    text-shadow: 0 0 50px #616161;
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -85,6 +85,20 @@ main {
 .active, 
 .coin-btn:hover {
     background-color: #00000060;
+}
+
+.coin-btn:first-of-type:hover,
+.coin-btn:first-of-type.active {
+    border-radius: 8px 8px 0 0;
+}
+
+.coin-btn:last-of-type:hover,
+.coin-btn:last-of-type.active {
+    border-radius: 0 0 8px 8px;
+}
+
+.coin-btn:last-of-type.active {
+    border-radius: 0;
 }
 
 .coin-icon {
@@ -115,7 +129,7 @@ main {
     height: fit-content;
     align-items: center;
     padding: 1rem 1.5rem;
-    text-shadow: 0px 0px 10px #616161;
+    text-shadow: 0 0 10px #616161;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border-radius: 8px;
@@ -225,7 +239,7 @@ main {
     font-weight: bold;
     font-size: 2.5rem;
     line-height: 2.8rem;
-    text-shadow: 0px 0px 10px #2d2d2d;
+    text-shadow: 0 0 10px #2d2d2d;
     border-top: #E0CA3C solid 8px;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -448,7 +462,7 @@ select {
     display: inline-block;
     width: 100%;
     height: 30px;
-    padding: 2px 5px 0px 5px;
+    padding: 2px 5px 0 5px;
     background-color: white;
     border: solid 1px #ced4da;
     border-radius: 8px;

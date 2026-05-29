@@ -7,9 +7,8 @@ images/.DS_Store
 learning-journal.code-workspace
 DESIGNs
 manifest
-node_modules
 data/data.js
 .env
 .DS_Store
-.DS_Store
 .idea
+dist
