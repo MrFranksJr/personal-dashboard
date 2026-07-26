@@ -6,6 +6,10 @@
     "action": {
         "default_icon": "images/icons/icon.png"
     },
+    "permissions": [
+        "geolocation",
+        "storage"
+    ],
     "icons": {
           "192": "images/icons/icon.svg" 
     },

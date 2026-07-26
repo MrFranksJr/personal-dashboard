@@ -1,5 +1,6 @@
-import { aCweatherAPI, openWeatherAPI } from "./data.js"
-export { geoSuccess, geoError, locationOptions, fetchWeather, weatherCityId }
+import {aCweatherAPI, openWeatherAPI} from "./data.js"
+
+export { geoSuccess, geoError, locationOptions, fetchWeather, weatherCityId, loadCachedWeather }
 
 let weatherDataJson = ''
 let weatherData = ''
@@ -10,8 +11,22 @@ const locationOptions = {
   timeout: 15000
 }
 
+function loadCachedWeather() {
+  const lat = localStorage.getItem('last-lat')
+  const lon = localStorage.getItem('last-lon')
+  if (lat && lon) {
+    fetchWeather({ coords: { latitude: parseFloat(lat), longitude: parseFloat(lon) } }, true)
+  }
+}
+
 ////////////////////////OPEN WEATHER API //////////////////////////
-async function fetchWeather(pos) {
+async function fetchWeather(pos, isCached = false) {
+  if (!isCached) {
+    localStorage.setItem('last-lat', pos.coords.latitude)
+    localStorage.setItem('last-lon', pos.coords.longitude)
+    localStorage.setItem('last-weather-time', Date.now())
+  }
+  
   weatherDataJson = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&units=${JSON.parse(localStorage.getItem('units'))}&appid=${openWeatherAPI}`)
   weatherData = await weatherDataJson.json()
   weatherCityId = `https://openweathermap.org/city/${weatherData.id}`

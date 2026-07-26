@@ -1,12 +1,20 @@
-import { geoSuccess, geoError, locationOptions, fetchWeather } from "./weatherfetch.js"
-import { fetchCrypto } from "./cryptofetch.js"
-import { defaultCoins } from "./coins.js"
+import {fetchWeather, geoError, loadCachedWeather, locationOptions} from "./weatherfetch.js"
+import {fetchCrypto} from "./cryptofetch.js"
+import {defaultCoins} from "./coins.js"
+
 export { setupMemory }
 
 function setupMemory() {
+    loadCachedWeather()
+    const lastTime = localStorage.getItem('last-weather-time')
+    const thirtyMinutes = 30 * 60 * 1000
+
     if (localStorage.getItem('has-preferences')) {
         fetchCrypto(JSON.parse(localStorage.getItem('crypto-assets')), JSON.parse(localStorage.getItem('vs_currency')))
-        navigator.geolocation.getCurrentPosition(fetchWeather, geoError, locationOptions)
+        
+        if (!lastTime || (Date.now() - lastTime > thirtyMinutes)) {
+            navigator.geolocation.getCurrentPosition(fetchWeather, geoError, locationOptions)
+        }
 
         document.getElementById('currency-list').value = JSON.parse(localStorage.getItem('vs_currency'))
         document.getElementById('measurement-list').value = JSON.parse(localStorage.getItem('units'))

@@ -1,11 +1,10 @@
-import { getFullDate, getTime, hideShowInfoModal, hideShowOptionsModal } from "./data/utils.js"
-import { setBackGround } from "./data/backgroundfetch.js"
-import { getCoinList, fetchCrypto } from "./data/cryptofetch.js"
-import { geoSuccess, geoError, locationOptions, fetchWeather, weatherCityId } from "./data/weatherfetch.js"
-import { fetchTrumpQuote } from "./data/trumpquote.js"
-import { setupMemory } from "./data/setupmemory.js"
+import {getFullDate, getTime, hideShowInfoModal, hideShowOptionsModal} from "./data/utils.js"
+import {setBackGround} from "./data/backgroundfetch.js"
+import {fetchCrypto, getCoinList} from "./data/cryptofetch.js"
+import {fetchWeather, geoError, locationOptions, weatherCityId} from "./data/weatherfetch.js"
+import {fetchTrumpQuote} from "./data/trumpquote.js"
+import {setupMemory} from "./data/setupmemory.js"
 
-const bigDiv = document.getElementById('bigdiv')
 const weatherDiv = document.getElementById('weather-div')
 const infoModal = document.getElementById('info-modal')
 const optionsModal = document.getElementById('options-modal')
@@ -75,6 +74,9 @@ function handleSaveSettings() {
 
     fetchCrypto(JSON.parse(localStorage.getItem('crypto-assets')), JSON.parse(localStorage.getItem('vs_currency')))
     navigator.geolocation.getCurrentPosition(fetchWeather, geoError, locationOptions)
+    
+    // Explicitly update cache timestamp when user saves settings to ensure fresh data
+    localStorage.setItem('last-weather-time', Date.now())
 
     const savedMsg = document.getElementById('settings-saved')
     savedMsg.style.transform = 'translateY(0px)'
